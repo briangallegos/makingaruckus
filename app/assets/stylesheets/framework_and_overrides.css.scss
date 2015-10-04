@@ -44,3 +44,14 @@ section {
   @extend .row;
   margin-top: 20px;
   }
+
+  ul {
+    padding-left: 10px;
+    li {
+      list-style: none;
+    }
+  }
+
+  a:visited {
+    color: #337ab7;
+  }
