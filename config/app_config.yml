@@ -1,0 +1,7 @@
+development:
+  name: just_ship
+  password: Pr@mpt5!
+
+production:
+  name: just_ship
+  password: Pr@mpt5!

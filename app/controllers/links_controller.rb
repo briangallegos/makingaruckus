@@ -1,4 +1,6 @@
 class LinksController < ApplicationController
+  http_basic_authenticate_with :name => APP_CONFIG[:name], :password => APP_CONFIG[:password], :except => :index
+
   before_action :set_link, only: [:show, :edit, :update, :destroy]
 
   # GET /links

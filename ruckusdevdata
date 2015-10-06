@@ -1,0 +1,418 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: links; Type: TABLE; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+CREATE TABLE links (
+    id integer NOT NULL,
+    icon character varying,
+    url character varying,
+    urltext character varying,
+    description character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE links OWNER TO makingaruckus;
+
+--
+-- Name: links_id_seq; Type: SEQUENCE; Schema: public; Owner: makingaruckus
+--
+
+CREATE SEQUENCE links_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE links_id_seq OWNER TO makingaruckus;
+
+--
+-- Name: links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: makingaruckus
+--
+
+ALTER SEQUENCE links_id_seq OWNED BY links.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE schema_migrations OWNER TO makingaruckus;
+
+--
+-- Name: taggings; Type: TABLE; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+CREATE TABLE taggings (
+    id integer NOT NULL,
+    tag_id integer,
+    taggable_id integer,
+    taggable_type character varying,
+    tagger_id integer,
+    tagger_type character varying,
+    context character varying(128),
+    created_at timestamp without time zone
+);
+
+
+ALTER TABLE taggings OWNER TO makingaruckus;
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE; Schema: public; Owner: makingaruckus
+--
+
+CREATE SEQUENCE taggings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE taggings_id_seq OWNER TO makingaruckus;
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: makingaruckus
+--
+
+ALTER SEQUENCE taggings_id_seq OWNED BY taggings.id;
+
+
+--
+-- Name: tags; Type: TABLE; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+CREATE TABLE tags (
+    id integer NOT NULL,
+    name character varying,
+    taggings_count integer DEFAULT 0
+);
+
+
+ALTER TABLE tags OWNER TO makingaruckus;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: makingaruckus
+--
+
+CREATE SEQUENCE tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tags_id_seq OWNER TO makingaruckus;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: makingaruckus
+--
+
+ALTER SEQUENCE tags_id_seq OWNED BY tags.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    password character varying,
+    name character varying,
+    email character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE users OWNER TO makingaruckus;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: makingaruckus
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO makingaruckus;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: makingaruckus
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: makingaruckus
+--
+
+ALTER TABLE ONLY links ALTER COLUMN id SET DEFAULT nextval('links_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: makingaruckus
+--
+
+ALTER TABLE ONLY taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: makingaruckus
+--
+
+ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: makingaruckus
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: links; Type: TABLE DATA; Schema: public; Owner: makingaruckus
+--
+
+COPY links (id, icon, url, urltext, description, created_at, updated_at) FROM stdin;
+1	1	http://www.goals2go.com/articles/zig-ziglar-goal-setting.htm	Zig Ziglar on Goal Setting	Article from goals2go.com	2015-10-05 20:13:31.617334	2015-10-05 21:44:53.087671
+3	2	http://www.zigziglarfoundation.org/files/zig-groups/Tools/Lesson_3-with_Exercises.pdf	Zig Ziglar Goals (Worksheet)	7 steps to success	2015-10-05 21:46:08.497253	2015-10-05 23:04:23.015451
+4	1	http://www.fastcompany.com/3033567/agendas/brainstorming-doesnt-work-try-this-technique-insteadBrainwriting	Brainwriting	Article on brainwriting from Fast Company	2015-10-05 21:47:45.359634	2015-10-05 23:04:34.001529
+7	1	http://youarenotsosmart.com/2011/03/25/the-sunk-cost-fallacy/	The Sunk Cost Fallacy	Article by David McRaney	2015-10-05 21:49:53.640368	2015-10-05 23:04:53.993808
+44	2	https://www.youtube.com/watch?v=2MAeBOQ5M5g	Dale Carnegie on Presenting (AudioBook)	Free audio book	2015-10-05 22:13:58.439012	2015-10-05 23:08:43.020152
+39	2	http://www.garrreynolds.com/Presentation/pdf/presentation_tips.pdf	Garr Reynolds Presentation Tips (PDF)		2015-10-05 22:09:40.184905	2015-10-05 23:03:36.083658
+40	3	https://www.youtube.com/watch?v=DZ2vtQCESpk	Garr Reynolds Presentation Tips (Video)		2015-10-05 22:09:59.67491	2015-10-05 23:03:42.397812
+2	3	www.abc.com	Zig Ziglar on Goal Setting (Video)	Same as above but a video	2015-10-05 21:25:15.989155	2015-10-05 23:03:56.43312
+5	1	http://sethgodin.typepad.com/freeprize/2015/04/how-to-ta.html	How to talk about your project	Seth blog post 	2015-10-05 21:48:24.030425	2015-10-05 23:04:40.464866
+6	1	http://sethgodin.typepad.com/seths_blog/2009/05/ignore-sunk-costs.html	Ignore Sunk Costs	Seth blog post 	2015-10-05 21:48:57.052674	2015-10-05 23:04:46.722492
+8	3	https://www.youtube.com/watch?v=4Lb-6rxZxx0	The Monty Hall Problem	Understanding sunk costs	2015-10-05 21:51:36.256702	2015-10-05 23:05:02.361634
+9	2	http://psych.hanover.edu/classes/cognition/papers/tversky81.pdf	The Psychology of Choice (PDF)		2015-10-05 21:54:00.106474	2015-10-05 23:05:08.957064
+10	1	http://sethgodin.typepad.com/seths_blog/2015/04/are-you-feeling-lucky.html	Are You Feeling Lucky?	Seth blog post on expected value	2015-10-05 21:54:41.013977	2015-10-05 23:05:15.359081
+11	3	https://www.youtube.com/watch?v=pp2_BBWkYe0	List the Dependencies (Video)		2015-10-05 21:55:05.786421	2015-10-05 23:05:22.110975
+12	1	https://en.wikipedia.org/wiki/Decision_tree	Decision Tree	Wikipedia article on decision trees	2015-10-05 21:55:37.055192	2015-10-05 23:05:29.028813
+13	1	http://lifehacker.com/398119/how-priorities-make-things-happen	How Priorities Make Things Happen	Scott Berkin article	2015-10-05 21:56:12.312582	2015-10-05 23:05:35.679062
+14	1	http://www.newyorker.com/magazine/2008/02/25/what-was-i-thinking	What Was I Thinking	New Yorker article on irrational decisions	2015-10-05 21:56:50.815732	2015-10-05 23:05:46.581914
+15	2	http://www.cs.unibo.it/~ruffino/Letture%20TDPC/Kahneman.%20am.ec.rev.,%205,%202003.pdf	Psychology for Behavioral Economists (PDF)	Daniel Kahneman 	2015-10-05 21:57:45.204463	2015-10-05 23:05:53.379095
+16	1	http://www.virtualsalt.com/crebook5c.htm	Expected Value	Robert Harris on Expected Value	2015-10-05 21:58:15.554682	2015-10-05 23:05:58.989411
+17	2	http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/Chapter6.pdf	Expected Value - Advanced Version (PDF)	Study from Dartmouth 	2015-10-05 21:58:53.535314	2015-10-05 23:06:04.550296
+18	1	http://sethgodin.typepad.com/seths_blog/2014/12/cutting-through-singers-paradox.html	Singers Paradox	Seth blog post	2015-10-05 21:59:27.407639	2015-10-05 23:06:10.142485
+19	3	http://aeon.co/video/philosophy/the-power-of-outrospection-trading-introspection-for-empathy/	Empathy (Video)		2015-10-05 21:59:51.940091	2015-10-05 23:06:15.79634
+20	1	http://www.fastcompany.com/3000620/create-true-innovation-consider-who-you-want-your-customers-become	Changing Your Customers	Fast Company article by Michael Schrage	2015-10-05 22:00:27.01795	2015-10-05 23:06:21.684156
+21	3	http://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action?language=en	Simon Sinek's Why Challenge (Video)		2015-10-05 22:01:06.141711	2015-10-05 23:06:27.250156
+22	1	http://www.creativehuddle.co.uk/marketing-myopia-explained/	Marketing Myopia		2015-10-05 22:01:28.439575	2015-10-05 23:06:34.733013
+23	1	http://georgelakoff.com/2014/11/29/george-lakoff-in-politics-progressives-need-to-frame-their-values/	Framing Values	George Lakoff on worldviews	2015-10-05 22:02:07.962046	2015-10-05 23:06:41.652899
+24	1	https://hackdesign.org/lessons/1	What is Design?	Design tips from Hackdesign.org	2015-10-05 22:02:41.535298	2015-10-05 23:06:47.324535
+25	1	http://www.shutterstock.com/blog/8-common-design-mistakes-and-how-to-avoid-them	8 Common Design Mistakes	From shutterstock.com	2015-10-05 22:03:11.490446	2015-10-05 23:06:53.179098
+26	1	https://en.wikipedia.org/wiki/Technology_adoption_lifecycle	Technology Adoption Lifecycle	Wikipedia article	2015-10-05 22:03:39.432419	2015-10-05 23:07:00.571095
+27	4	https://www.google.com/search?q=funnel+analysis&oq=funnel+an&aqs=chrome.0.0j69i57j0l4.2871j0j4&sourceid=chrome&es_sm=91&ie=UTF-8	Funnel Analysis	Google search results page	2015-10-05 22:04:05.357926	2015-10-05 23:07:06.66089
+28	3	https://www.youtube.com/watch?v=Zwh8ThUqeC8	Crossing the Chasm (Video)		2015-10-05 22:04:25.814428	2015-10-05 23:07:13.77458
+30	1	http://www.signsalad.com/semiotics-explained/	Semiotics Explained		2015-10-05 22:05:18.156374	2015-10-05 23:07:26.112879
+31	1	http://www.usability.gov/how-to-and-tools/methods/personas.html	Personas	Personas explained from usability.gov	2015-10-05 22:05:54.604214	2015-10-05 23:07:31.820717
+32	1	http://sethgodin.typepad.com/seths_blog/2007/06/responsibility.html	Marketing Responsibility	Seth blog post 	2015-10-05 22:06:18.753487	2015-10-05 23:07:38.535417
+33	1	http://www.actionablebooks.com/en-ca/summaries/lets-get-real-or-lets-not-play/	Let's Get Real or Let's Not Play		2015-10-05 22:06:58.760008	2015-10-05 23:07:53.144325
+34	1	http://blog.pipelinersales.com/sales-management/sales-methodology/why-questions-matter-in-selling-a-synopsis-of-spin-selling/	Spin Selling	Synopsis of Spin Selling	2015-10-05 22:07:24.702423	2015-10-05 23:08:03.456067
+36	2	https://www.bestprincipledsolutions.com/uploads/2011_ClassicsCompendium_Must_Read_Articles_for_Managerial_Success_.pdf#page=127	Selling To Organizations (PDF)		2015-10-05 22:07:56.911039	2015-10-05 23:08:22.72479
+42	3	http://www.ted.com/talks/nancy_duarte_the_secret_structure_of_great_talks	Nancy Duarte on Presenting (TED)	Nancy Duarte Ted talk	2015-10-05 22:12:39.227185	2015-10-05 23:08:29.155372
+43	2	http://www.gutenberg.org/ebooks/16317	Dale Carnegie on Presenting (eBook)	Free eBook	2015-10-05 22:13:17.286854	2015-10-05 23:08:36.34699
+45	1	http://sethgodin.typepad.com/freeprize/2015/04/opportunity-cost.html	Opportunity Costs	Seth blog post 	2015-10-05 22:14:22.759352	2015-10-05 23:08:48.602021
+46	1	http://sethgodin.typepad.com/seths_blog/2010/12/the-worlds-worst-boss.html	The World's Worst Boss	Seth blog post 	2015-10-05 22:14:44.752261	2015-10-05 23:08:54.222601
+47	1	http://sethgodin.typepad.com/seths_blog/2015/07/three-things-that-make-ceos-stupid.html	Three Things That Make CEO's Stupid	Seth blog post 	2015-10-05 22:15:24.471539	2015-10-05 23:09:03.026488
+41	3	https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#tbm=vid&q=nancy+duarte+presentation	Nancy Duarte on Presenting	Google video search results page	2015-10-05 22:10:47.897161	2015-10-05 23:11:30.512213
+37	2	http://sethgodin.typepad.com/files/liars-excerpt-for-altmba.pdf	All Marketers Are Liars (PDF)	Excerpt from Seth's book	2015-10-05 22:08:30.568281	2015-10-05 23:03:22.05141
+38	2	http://www.spcforexcel.com/publications/Theory_of_Constraints/13B63E123ED3A6769B6575CE93DA4F2F/Theory%20of%20Constraints.pdf	Theory of Constraints (PDF)		2015-10-05 22:08:55.678803	2015-10-05 23:03:29.943063
+29	2	http://smile.amazon.com/Crossing-Chasm-3rd-Disruptive-Mainstream/dp/0062292986/ref=sr_1_1?ie=UTF8&qid=1438618764&sr=8-1&keywords=crossing+the+chasm	Crossing the Chasm (Book)	Link to Amazon to purchase book	2015-10-05 22:05:00.470808	2015-10-05 23:07:19.808205
+49	3	https://www.youtube.com/watch?v=eywi0h_Y5_U	Steve Ballmer on the iPhone (Video)		2015-10-05 22:16:21.110265	2015-10-05 23:11:23.493211
+48	1	http://examples.yourdictionary.com/examples-of-assets.html	Examples of Assets		2015-10-05 22:15:52.506165	2015-10-05 23:11:49.546459
+50	1	http://www.paulgraham.com/yahoo.html	What Happened to Yahoo	Blog post by Paul Graham	2015-10-05 22:16:53.870867	2015-10-05 23:11:57.134339
+51	1	https://hbr.org/2004/07/marketing-myopia#	Marketing Myopia	HBR Article	2015-10-05 22:17:30.629577	2015-10-05 23:12:07.652601
+\.
+
+
+--
+-- Name: links_id_seq; Type: SEQUENCE SET; Schema: public; Owner: makingaruckus
+--
+
+SELECT pg_catalog.setval('links_id_seq', 51, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: makingaruckus
+--
+
+COPY schema_migrations (version) FROM stdin;
+20151003191349
+20151005123115
+20151005123116
+20151005123117
+20151005123118
+20151005123119
+20151005193621
+\.
+
+
+--
+-- Data for Name: taggings; Type: TABLE DATA; Schema: public; Owner: makingaruckus
+--
+
+COPY taggings (id, tag_id, taggable_id, taggable_type, tagger_id, tagger_type, context, created_at) FROM stdin;
+\.
+
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: makingaruckus
+--
+
+SELECT pg_catalog.setval('taggings_id_seq', 1, false);
+
+
+--
+-- Data for Name: tags; Type: TABLE DATA; Schema: public; Owner: makingaruckus
+--
+
+COPY tags (id, name, taggings_count) FROM stdin;
+\.
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: makingaruckus
+--
+
+SELECT pg_catalog.setval('tags_id_seq', 1, false);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: makingaruckus
+--
+
+COPY users (id, password, name, email, created_at, updated_at) FROM stdin;
+1	Deadhead12	Brian Gallegos	brian.gallegos@gmail.com	2015-10-03 19:15:08.000702	2015-10-03 19:15:08.000702
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: makingaruckus
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, true);
+
+
+--
+-- Name: links_pkey; Type: CONSTRAINT; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+ALTER TABLE ONLY links
+    ADD CONSTRAINT links_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+ALTER TABLE ONLY taggings
+    ADD CONSTRAINT taggings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+ALTER TABLE ONLY tags
+    ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_taggings_on_taggable_id_and_taggable_type_and_context; Type: INDEX; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_context ON taggings USING btree (taggable_id, taggable_type, context);
+
+
+--
+-- Name: index_tags_on_name; Type: INDEX; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_tags_on_name ON tags USING btree (name);
+
+
+--
+-- Name: taggings_idx; Type: INDEX; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+CREATE UNIQUE INDEX taggings_idx ON taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: makingaruckus; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: briangallegos
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM briangallegos;
+GRANT ALL ON SCHEMA public TO briangallegos;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

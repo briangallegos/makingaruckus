@@ -1,6 +1,9 @@
+
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -35,4 +38,10 @@ module Makingaruckus
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
   end
+
+  
 end
+
+raw_config = File.read("#{Rails.root}/config/app_config.yml")
+APP_CONFIG = YAML.load(raw_config)[Rails.env].symbolize_keys
+
