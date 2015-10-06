@@ -52,6 +52,22 @@ section {
     }
   }
 
-  a:visited {
-    color: #337ab7;
+  th, td {
+    padding-right: 30px;
+  }
+
+  .glyphicon {
+    display:block;
+    padding: 5px;
+  }
+
+
+  .toc {
+    padding: 5px 5px 5px 20px;
+    border: 1px solid black;
+    margin-bottom: 40px;
+  }
+
+  .divide {
+    margin-top: 10px;
   }

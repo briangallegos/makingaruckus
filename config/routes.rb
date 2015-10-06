@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :links
   resources :users
-  root to: 'visitors#index'
+  root to: 'links#index'
 end
