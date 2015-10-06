@@ -5,7 +5,7 @@ div class="col-md-12 divide"
 h1 class="col-md-4" Ruckus Library
 div class="col-md-4"
 div class="toc col-md-4"
-  h4 Table of Contents
+  h4 Icons
   <ul>
     <li class="glyphicon glyphicon-globe"> - Web Page / Article
     <li class="glyphicon glyphicon-book"> - PDF / Book
@@ -37,9 +37,9 @@ table class=["table table-striped"]
             td class=["glyphicon glyphicon-search"]
         td = link_to link.urltext, link.url
         td = link.description
-        td = link_to 'Show', link
-        td = link_to 'Edit', edit_link_path(link)
-        td = link_to 'Destroy', link, data: {:confirm => 'Are you sure?'}, :method => :delete
+        // td = link_to 'Show', link
+        // td = link_to 'Edit', edit_link_path(link)
+        // td = link_to 'Destroy', link, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 
 = link_to 'New Link', new_link_path
