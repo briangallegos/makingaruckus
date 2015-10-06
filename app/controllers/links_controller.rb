@@ -1,6 +1,8 @@
 class LinksController < ApplicationController
   http_basic_authenticate_with :name => APP_CONFIG[:name], :password => APP_CONFIG[:password], :except => :index
 
+  
+
   before_action :set_link, only: [:show, :edit, :update, :destroy]
 
   # GET /links
@@ -71,6 +73,8 @@ class LinksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:icon, :url, :urltext, :description)
+      params.require(:link).permit(:icon, :url, :urltext, :description, :tag, :name, :tag_list)
     end
+
+  
 end

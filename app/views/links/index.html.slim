@@ -21,6 +21,7 @@ table class=["table table-striped"]
       th Icon
       th Link
       th Description
+      th Tag
       
 
   tbody 
@@ -37,8 +38,9 @@ table class=["table table-striped"]
             td class=["glyphicon glyphicon-search"]
         td = link_to link.urltext, link.url
         td = link.description
+        td = link.tag 
         // td = link_to 'Show', link
-        // td = link_to 'Edit', edit_link_path(link)
+        td = link_to 'Edit', edit_link_path(link)
         // td = link_to 'Destroy', link, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 
